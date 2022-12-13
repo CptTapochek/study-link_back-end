@@ -1,0 +1,12 @@
+#import User from "user.graphql"
+#import UserInput from "user.graphql"
+
+
+type Query {
+    getAllUsers: [User]
+    getUser(id: ID): User
+}
+
+type Mutation {
+    createUser(input: UserInput): User
+}

@@ -1,12 +1,16 @@
 #import User from "user.graphql"
 #import UserInput from "user.graphql"
+#import * from "courses.graphql"
 
 
 type Query {
     getAllUsers: [User]
     getUser(id: ID): User
+    getCoursesList(id: String): [Course]
+    getCourse(id: String): Course
 }
 
 type Mutation {
-    createUser(input: UserInput): User
+    createUser(input: UserInput): User,
+    createCourse(input: CourseInput): Course
 }

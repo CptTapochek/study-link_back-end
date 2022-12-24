@@ -1,0 +1,66 @@
+
+## Query
+type Course {
+    id: String!
+    title: String!
+    link: String!
+    progress: Int
+    processes: Int
+    subjects: [Subject]
+}
+type Subject {
+    id: String!
+    title: String!
+    type: String!
+    files: [Files]
+    quiz_details: QuizDetails
+}
+type QuizDetails {
+    completed: Boolean!
+    result: String
+    score: Int
+    max_score: Int
+}
+type Files {
+    id: String!
+    title: String!
+    type: String
+    download_link: String!
+}
+
+## Input
+input CourseInput {
+    title: String!
+    processes: Int
+    subjects: [InputSubjects]
+}
+input InputSubjects {
+    title: String!
+    type: SubjectType!
+    files: [FilesInput]
+    quiz_details: InputQuizDetails
+}
+input InputQuizDetails {
+    title: String!
+    questions: [InputQuizQuestions]
+    max_score: Int
+}
+input InputQuizQuestions {
+    title: String!
+    type: QuestionResponseType!
+    responses: [String]
+}
+input FilesInput {
+    title: String!
+    type: String
+    download_link: String!
+}
+enum SubjectType {
+    LEARN
+    QUIZ
+}
+enum QuestionResponseType {
+    MULTIPLE
+    ONE
+    TEXT
+}

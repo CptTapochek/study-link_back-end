@@ -1,7 +1,7 @@
 
 ## Query
 type Course {
-    id: String!
+    _id: String!
     title: String!
     link: String!
     progress: Int
@@ -9,7 +9,7 @@ type Course {
     subjects: [Subject]
 }
 type Subject {
-    id: String!
+    _id: String!
     title: String!
     type: String!
     files: [Files]
@@ -22,7 +22,7 @@ type QuizDetails {
     max_score: Int
 }
 type Files {
-    id: String!
+    _id: String!
     title: String!
     type: String
     download_link: String!

@@ -1,3 +1,4 @@
+import COURSE from "../models/course.js";
 
 
 export async function getCoursesList(root) {
@@ -76,6 +77,21 @@ export async function getCourse(root) {
 
 export async function createCourse(root) {
     let input = root.input;
+    const generatedId = Date.now().toString();
+    input["_id"] = generatedId;
+    const courseDraft = new COURSE(input);
+    let response;
 
-    return input;
+    try {
+        await courseDraft.save(function (error){
+            if (error) console.log(error);
+        });
+    } catch (error) {
+        if (error) console.log(error);
+        throw error;
+    }
+
+    response = await COURSE.findOne({_id: generatedId});
+
+    return response;
 }

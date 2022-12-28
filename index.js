@@ -1,5 +1,3 @@
-// import * as express from "express";
-// import * as url from "url";
 import { graphqlHTTP } from "express-graphql";
 import { resolvers as rootValue, schema } from "./gql/index.js";
 import onHTTPRequestHandler from "./server/http-server.js";

@@ -1,11 +1,14 @@
 #import * from "courses.graphql"
+#import * from "users.graphql"
 
 
 type Query {
     getCoursesList(id: String): [Course]
     getCourse(id: String): Course
+    login(email: String!, password: String!): AuthData
 }
 
 type Mutation {
     createCourse(input: CourseInput): Course
+    SignUp(input: SignUp): AuthData
 }

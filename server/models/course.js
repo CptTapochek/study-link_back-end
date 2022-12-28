@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 const CourseSchema = new Schema({
-    _id: { type: String },
     title: { type: String },
     link: { type: String },
     progress: { type: Number, default: null },
@@ -29,6 +28,25 @@ const CourseSchema = new Schema({
             }
         }
     ],
+    teacher: {
+        type: {
+            _id: { type: String },
+            name: { type: String, default: null },
+            surname: { type: String, default: null },
+            email: { type: String, default: null },
+        }
+    },
+    students: [
+        {
+            type: {
+                _id: { type: String },
+                name: { type: String, default: null },
+                surname: { type: String, default: null },
+                email: { type: String, default: null }
+            },
+            default: null
+        }
+    ]
 }, { versionKey: false });
 
 const COURSE = await mongoose.model("courses", CourseSchema);

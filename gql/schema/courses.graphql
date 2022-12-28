@@ -7,6 +7,20 @@ type Course {
     progress: Int
     processes: Int
     subjects: [Subject]
+    teacher: CourseTeacher!
+    students: [Students]
+}
+type CourseTeacher {
+    _id: String!
+    name: String
+    surname: String
+    email: String
+}
+type Students {
+    _id: String!
+    name: String
+    surname: String
+    email: String
 }
 type Subject {
     _id: String!
@@ -33,6 +47,20 @@ input CourseInput {
     title: String!
     processes: Int
     subjects: [InputSubjects]
+    teacher: InputCourseTeacher!
+    students: [InputStudents]
+}
+input InputCourseTeacher {
+    _id: String!
+    name: String
+    surname: String
+    email: String
+}
+input InputStudents {
+    _id: String!
+    name: String
+    surname: String
+    email: String
 }
 input InputSubjects {
     title: String!

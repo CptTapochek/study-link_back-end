@@ -1,0 +1,34 @@
+
+type AuthData {
+    _id: ID
+    type: usersType
+    name: String
+    surname: String
+    email: String
+    location: UserLocation
+    photo: String
+    password: String
+    error: String
+}
+
+type UserLocation {
+    address: String
+    phone: String
+    country: String
+    city: String
+    state: String
+    zip_code: String
+}
+
+enum usersType {
+    STUDENT
+    TEACHER
+}
+
+input SignUp {
+    type: usersType
+    name: String
+    surname: String
+    email: String!
+    password: String!
+}

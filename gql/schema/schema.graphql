@@ -3,7 +3,7 @@
 
 
 type Query {
-    getCoursesList(id: String): [Course]
+    getCoursesList(userId: String): [Course]
     getCourse(id: String): Course
     login(email: String!, password: String!): AuthData
 }

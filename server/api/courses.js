@@ -50,6 +50,5 @@ export async function createCourse(root) {
         throw error;
     }
 
-
     return response;
 }

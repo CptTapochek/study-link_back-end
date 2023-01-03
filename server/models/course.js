@@ -3,9 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const CourseSchema = new Schema({
     title: { type: String },
-    link: { type: String },
-    progress: { type: Number, default: null },
-    processes: { type: Number, default: null },
+    processes: { type: Number, default: 0 },
     subjects: [
         {
             title: { type: String },
@@ -14,15 +12,25 @@ const CourseSchema = new Schema({
                 {
                     title: { type: String },
                     type: { type: String },
-                    download_link: { type: String, default: null },
+                    size: { type: Number, default: 0 },
+                    data: { type: String },
                 }
             ],
             quiz_details: {
                 type: {
-                    completed: { type: Boolean },
-                    result: { type: String, default: null },
-                    score: { type: Number, default: null },
-                    max_score: { type: Number, default: null },
+                    max_score: { type: Number, default: 0 },
+                    questions: [
+                        {
+                            title: { type: String },
+                            type: { type: String },
+                            responses: [
+                                {
+                                    title: { type: String, default: null },
+                                    correct: { type: Boolean, default: false }
+                                }
+                            ],
+                        }
+                    ]
                 },
                 default: null
             }
@@ -36,17 +44,6 @@ const CourseSchema = new Schema({
             email: { type: String, default: null },
         }
     },
-    students: [
-        {
-            type: {
-                _id: { type: String },
-                name: { type: String, default: null },
-                surname: { type: String, default: null },
-                email: { type: String, default: null }
-            },
-            default: null
-        }
-    ]
 }, { versionKey: false });
 
 const COURSE = await mongoose.model("courses", CourseSchema);

@@ -3,20 +3,11 @@
 type Course {
     _id: String!
     title: String!
-    link: String!
-    progress: Int
     processes: Int
     subjects: [Subject]
     teacher: CourseTeacher!
-    students: [Students]
 }
 type CourseTeacher {
-    _id: String!
-    name: String
-    surname: String
-    email: String
-}
-type Students {
     _id: String!
     name: String
     surname: String
@@ -30,16 +21,27 @@ type Subject {
     quiz_details: QuizDetails
 }
 type QuizDetails {
-    completed: Boolean!
-    result: String
-    score: Int
+    title: String
     max_score: Int
+    questions: [Questions]
+}
+type Questions {
+    _id: String
+    title: String!
+    type: QuestionsType
+    responses: [QuestionResponse]
+}
+type QuestionResponse {
+    _id: String!
+    title: String!
+    correct: Boolean
 }
 type Files {
     _id: String!
     title: String!
     type: String
-    download_link: String!
+    size: Int
+    data: String
 }
 
 ## Input
@@ -48,15 +50,8 @@ input CourseInput {
     processes: Int
     subjects: [InputSubjects]
     teacher: InputCourseTeacher!
-    students: [InputStudents]
 }
 input InputCourseTeacher {
-    _id: String!
-    name: String
-    surname: String
-    email: String
-}
-input InputStudents {
     _id: String!
     name: String
     surname: String
@@ -69,26 +64,31 @@ input InputSubjects {
     quiz_details: InputQuizDetails
 }
 input InputQuizDetails {
-    title: String!
-    questions: [InputQuizQuestions]
+    title: String
     max_score: Int
+    questions: [InputQuestions]
 }
-input InputQuizQuestions {
+input InputQuestions {
     title: String!
-    type: QuestionResponseType!
-    responses: [String]
+    type: QuestionsType
+    responses: [InputQuestionResponse]
+}
+input InputQuestionResponse {
+    title: String
+    correct: Boolean
 }
 input FilesInput {
     title: String!
-    type: String
-    download_link: String!
+    type: String!
+    size: Int
+    data: String!
 }
 enum SubjectType {
     LEARN
     QUIZ
 }
-enum QuestionResponseType {
-    MULTIPLE
-    ONE
-    TEXT
+enum QuestionsType {
+    ONE_RESPONSE
+    MULTI_RESPONSE
+    TEXT_RESPONSE
 }

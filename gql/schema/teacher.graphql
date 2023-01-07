@@ -1,0 +1,15 @@
+
+
+type CourseTeacher {
+    _id: String!
+    name: String
+    surname: String
+    email: String
+}
+
+input InputCourseTeacher {
+    _id: String!
+    name: String
+    surname: String
+    email: String
+}

@@ -1,35 +1,29 @@
 import COURSE from "../models/course.js";
+import USER from "../models/user.js";
 
 
 export async function getCoursesList(root) {
-    let userId = root.id;
+    let userId = root.userId;
+    const user = await USER.findOne({ _id: userId });
+    let courseList = [];
 
-    /*Test data*/
-    let courses = [
-        {
-            id: "UASsdS4udh5wSSdu2d323",
-            title: "Course_1",
-            link: "Course_1_s23s4dad3re",
-            progress: 0,
-            processes: 12
-        },
-        {
-            id: "feFF3r2iDsd8",
-            title: "Course_2",
-            link: "Course_2_hth455h",
-            progress: 3,
-            processes: 14
-        },
-        {
-            id: "FGsdSud43hwSSdu2duj23",
-            title: "Course_3",
-            link: "Course_3_od32adDD",
-            progress: 2,
-            processes: 8
+    if(user["type"] === "STUDENT") {
+        courseList = await COURSE.find().select({
+            "_id": 1, "title": 1, "processes": 1, "teacher": 1
+        });
+        for (let item of courseList) {
+            item.progress = 0;
         }
-    ];
+    } else if(user["type"] === "TEACHER") {
+        courseList = await COURSE.find({ "teacher._id": userId }).select({
+            "_id": 1, "title": 1, "processes": 1, "teacher": 1
+        });
+        for (let item of courseList) {
+            item.progress = 0;
+        }
+    }
 
-    return courses;
+    return courseList;
 }
 
 export async function getCourse(root) {
@@ -44,9 +38,18 @@ export async function createCourse(root) {
     let response;
 
     try {
-        response = await courseDraft.save();
+        await courseDraft.save().then(() => {
+            response = {
+                code: "200"
+            };
+        });
     } catch (error) {
-        if (error) console.log(error);
+        if (error) {
+            response = {
+                code: "400",
+                error: error.toString()
+            }
+        }
         throw error;
     }
 

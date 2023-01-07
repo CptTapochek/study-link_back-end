@@ -1,17 +1,13 @@
+#import * from "teacher.graphql"
 
 ## Query
 type Course {
     _id: String!
     title: String!
     processes: Int
+    progress: Int
     subjects: [Subject]
     teacher: CourseTeacher!
-}
-type CourseTeacher {
-    _id: String!
-    name: String
-    surname: String
-    email: String
 }
 type Subject {
     _id: String!
@@ -23,25 +19,22 @@ type Subject {
 type QuizDetails {
     title: String
     max_score: Int
-    questions: [Questions]
-}
-type Questions {
-    _id: String
-    title: String!
-    type: QuestionsType
-    responses: [QuestionResponse]
-}
-type QuestionResponse {
-    _id: String!
-    title: String!
-    correct: Boolean
+    score: Int
+    state: String
 }
 type Files {
     _id: String!
     title: String!
     type: String
     size: Int
-    data: String
+}
+
+type MiniCourse {
+    _id: String!
+    title: String!
+    processes: Int
+    progress: Int
+    teacher: CourseTeacher
 }
 
 ## Input
@@ -50,12 +43,6 @@ input CourseInput {
     processes: Int
     subjects: [InputSubjects]
     teacher: InputCourseTeacher!
-}
-input InputCourseTeacher {
-    _id: String!
-    name: String
-    surname: String
-    email: String
 }
 input InputSubjects {
     title: String!

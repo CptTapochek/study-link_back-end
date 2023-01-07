@@ -3,12 +3,18 @@
 
 
 type Query {
-    getCoursesList(userId: String): [Course]
+    getCoursesList(userId: String!): [MiniCourse]
     getCourse(id: String): Course
     login(email: String!, password: String!): AuthData
 }
 
 type Mutation {
-    createCourse(input: CourseInput): Course
+    createCourse(input: CourseInput): Response
     SignUp(input: SignUp): AuthData
+}
+
+
+type Response {
+    code: String!
+    error: String
 }

@@ -1,0 +1,23 @@
+
+
+type Quiz {
+    title: String
+    max_score: Int
+    questions: [Questions]
+}
+
+type Questions {
+    title: String
+    type: QuestionsType
+    responses: [QuestionResponse]
+}
+
+type QuestionResponse {
+    title: String
+}
+
+enum QuestionsType {
+    ONE_RESPONSE
+    MULTI_RESPONSE
+    TEXT_RESPONSE
+}

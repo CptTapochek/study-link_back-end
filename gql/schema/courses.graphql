@@ -1,4 +1,5 @@
 #import * from "teacher.graphql"
+#import QuestionsType from "quiz.graphql"
 
 ## Query
 type Course {
@@ -73,9 +74,4 @@ input FilesInput {
 enum SubjectType {
     LEARN
     QUIZ
-}
-enum QuestionsType {
-    ONE_RESPONSE
-    MULTI_RESPONSE
-    TEXT_RESPONSE
 }

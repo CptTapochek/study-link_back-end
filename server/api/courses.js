@@ -28,8 +28,8 @@ export async function getCoursesList(root) {
 
 export async function getCourse(root) {
     let courseId = root.id;
-
-    return "test";
+    const response = await COURSE.findOne({_id: courseId});
+    return response;
 }
 
 export async function createCourse(root) {

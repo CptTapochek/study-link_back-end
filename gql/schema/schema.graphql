@@ -6,8 +6,8 @@
 type Query {
     getCoursesList(userId: String!): [MiniCourse]
     getCourse(id: String!): Course
-    getQuiz(quizId: String!): Quiz
     login(email: String!, password: String!): AuthData
+    generateQuiz(userId: String!, quizId: String!): Quiz
 }
 
 type Mutation {

@@ -1,8 +1,11 @@
 
 
 type Quiz {
-    title: String
+    _id: String!
+    title: String!
     max_score: Int
+    score: Int
+    completed: Boolean
     questions: [Questions]
 }
 

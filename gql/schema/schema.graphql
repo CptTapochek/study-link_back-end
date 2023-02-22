@@ -12,6 +12,7 @@ type Query {
 
 type Mutation {
     createCourse(input: CourseInput): Response
+    submitQuiz(input: QuizInput) : Response
     SignUp(input: SignUp): AuthData
 }
 

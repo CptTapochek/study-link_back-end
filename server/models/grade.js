@@ -12,8 +12,13 @@ const GradeSchema = new Schema({
         max_score: { type: Number, default: 0 },
         score: { type: Number, default: 0 },
     },
+    course_title: { type: String, default: null },
     approve: { type: Boolean, default: false },
-    date: { type: Date },
+    date: {
+        year: { type: String },
+        month: { type: String },
+        day: { type: String },
+    },
 }, { versionKey: false });
 
 const GRADE = await mongoose.model("grades", GradeSchema);

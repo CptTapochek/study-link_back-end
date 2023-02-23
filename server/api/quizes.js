@@ -61,6 +61,7 @@ export async function submitQuiz(root) {
     const quizID = root.input.quizId;
     const questions = root.input.questions;
     const draftQuestions = root.input["draft_questions"];
+    const date = new Date(Date.now());
     let responseCode = "200";
     let errorMessage = "null";
     let score = 0;
@@ -70,12 +71,13 @@ export async function submitQuiz(root) {
         /* Get Course that contains this quiz and find quiz */
         const course = await COURSE.findOne({"subjects._id": quizID});
         const quiz = course["subjects"].find(subject => subject._id == quizID);
-        /*  */
+        /* Get every question from quiz */
         for (let item of questions) {
             const question = quiz["quiz_details"]["questions"].find(quest => quest._id == item["_id"]);
+            /* Assigning score for correct responses */
             if(item["type"].toString() !== "TEXT_RESPONSE") {
                 for(let resp of question["responses"]){
-                    if (resp["correct"] === true){
+                    if (resp["correct"] === true) {
                         for (let idx = 0; idx < item["correct_response_id"].length; idx++){
                             if(resp["_id"].toString() === item["correct_response_id"][idx]) {
                                 score++;
@@ -89,14 +91,17 @@ export async function submitQuiz(root) {
                 }
             }
         }
+        /* Add approve flag if user have more than 50% of points */
         if((score / quiz["quiz_details"]["max_score"]) > 0.5) {
             approve = true;
         }
+        /* Update old info about quiz in DB */
         await QUIZ.update({userId: userID, quizId: quizID}, {
             completed: true,
             score: score,
             questions: draftQuestions
         });
+        /* Create grades note in DB */
         const student = await USER.findOne({ _id: userID });
         const newGrade = new GRADE({
             student: {
@@ -108,6 +113,12 @@ export async function submitQuiz(root) {
                 title: quiz["title"],
                 max_score: quiz["quiz_details"]["max_score"],
                 score: score
+            },
+            course_title: course["title"],
+            date: {
+                year: date.getFullYear().toString(),
+                month: date.getMonth() < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString(),
+                day: date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString(),
             },
             approve: approve
         });

@@ -1,11 +1,13 @@
 #import * from "courses.graphql"
 #import * from "users.graphql"
 #import * from "quiz.graphql"
+#import * from "grades.graphql"
 
 
 type Query {
     getCoursesList(userId: String!): [MiniCourse]
     getCourse(id: String!): Course
+    getGrades(userId: String!): [Grades]
     login(email: String!, password: String!): AuthData
     generateQuiz(userId: String!, quizId: String!): Quiz
 }

@@ -1,0 +1,15 @@
+
+type Grades {
+    courseTitle: String
+    quizTitle: String
+    maxScore: Int!
+    score: Int!
+    approve: Boolean!
+    date: Date!
+}
+
+type Date {
+    year: String
+    month: String
+    day: String
+}

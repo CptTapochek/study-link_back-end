@@ -10,12 +10,14 @@ type Quiz {
 }
 type Questions {
     _id: String
+    questionId: String
     title: String
     type: QuestionsType
     responses: [QuestionResponse]
 }
 type QuestionResponse {
     _id: String
+    responseId: String
     title: String
 }
 
@@ -45,7 +47,7 @@ input DraftQuestions {
     responses: [DraftResponses]
 }
 input DraftResponses {
-    responseId: String
+    _id: String
     title: String
     chosen: Boolean
 }

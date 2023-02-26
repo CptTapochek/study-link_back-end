@@ -77,8 +77,10 @@ export async function submitQuiz(root) {
             /* Assigning score for correct responses */
             if(item["type"].toString() !== "TEXT_RESPONSE") {
                 for(let resp of question["responses"]){
+                    console.log(resp);
                     if (resp["correct"] === true) {
-                        for (let idx = 0; idx < item["correct_response_id"].length; idx++){
+                        console.log(item["correct_response_id"]);
+                        for (let idx = 0; idx < item["correct_response_id"].length; idx++) {
                             if(resp["_id"].toString() === item["correct_response_id"][idx]) {
                                 score++;
                             }

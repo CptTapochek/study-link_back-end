@@ -26,8 +26,7 @@ export async function getCoursesList(root) {
             item.progress = getRandomInt(item["processes"] + 1);
         }
     }
-
-    return courseList;
+    return courseList.reverse();
 }
 
 export async function getCourse(root) {

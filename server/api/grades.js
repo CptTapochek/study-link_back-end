@@ -5,7 +5,7 @@ export async function getGrades(root) {
     const userId = root.userId;
     let response = [];
 
-    const grades = await GRADE.find({ "student.student_id": userId });
+    const grades = await GRADE.find({ "student.student_id": userId }).sort({date:-1});
     for (let item of grades) {
         response.push({
             courseTitle: (await item).course_title,

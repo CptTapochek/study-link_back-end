@@ -4,7 +4,12 @@ import onHTTPRequestHandler from "./server/http-server.js";
 import connect from "./server/models/index.js";
 
 const { app: httpApp, server: httpServer } = onHTTPRequestHandler();
-const GraphQL = graphqlHTTP({ schema: schema, rootValue: rootValue, graphiql: true });
+const GraphQL = graphqlHTTP({
+    schema: schema,
+    rootValue: rootValue,
+    graphiql: true
+});
+
 await connect();
 
 httpApp.use("/api", GraphQL);

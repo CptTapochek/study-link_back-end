@@ -1,5 +1,6 @@
 import USER from "../models/user.js";
 import * as dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 
@@ -34,5 +35,20 @@ export async function SignUp(root) {
         response = await userDraft.save();
     }
 
+    return response;
+}
+
+
+export async function CheckIfTokenIsValid(root) {
+    const token = root.token;
+    let response = false;
+    await jwt.verify(
+        token,
+        process.env.PRIVATE_KEY,
+        { algorithms: ['SH256'] },
+        function(err, decoded) {
+            response = !(err || decoded === undefined);
+        }
+    );
     return response;
 }

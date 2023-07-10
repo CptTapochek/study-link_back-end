@@ -32,3 +32,10 @@ input SignUp {
     email: String!
     password: String!
 }
+
+type Student {
+    name: String,
+    surname: String,
+    group: Int,
+    error: String
+}

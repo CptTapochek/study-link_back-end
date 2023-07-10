@@ -18,7 +18,6 @@ type Mutation {
     SignUp(input: SignUp): AuthData
 }
 
-
 type Response {
     code: String!
     error: String

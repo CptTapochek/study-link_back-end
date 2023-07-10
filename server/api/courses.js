@@ -7,19 +7,23 @@ export async function getCoursesList(root) {
     const user = await USER.findOne({ _id: userId });
     let courseList = [];
 
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
     if(user["type"] === "STUDENT") {
         courseList = await COURSE.find().select({
             "_id": 1, "title": 1, "processes": 1, "teacher": 1
         });
         for (let item of courseList) {
-            item.progress = 0;
+            item.progress = getRandomInt(item["processes"] + 1);
         }
     } else if(user["type"] === "TEACHER") {
         courseList = await COURSE.find({ "teacher._id": userId }).select({
             "_id": 1, "title": 1, "processes": 1, "teacher": 1
         });
         for (let item of courseList) {
-            item.progress = 0;
+            item.progress = getRandomInt(item["processes"] + 1);
         }
     }
 

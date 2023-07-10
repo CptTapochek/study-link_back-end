@@ -39,3 +39,10 @@ type Student {
     group: Int,
     error: String
 }
+
+type DashBoardData {
+    students: Int!,
+    teachers: Int!,
+    courses: Int!,
+    progress: Int!
+}

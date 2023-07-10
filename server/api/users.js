@@ -1,6 +1,7 @@
 import USER from "../models/user.js";
 import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import COURSE from "../models/course.js";
 
 dotenv.config();
 
@@ -38,6 +39,28 @@ export async function SignUp(root) {
     return response;
 }
 
+export async function dashboardData(root) {
+    try {
+        const userId = root.userId;
+        const progress = getRandomInt(100);
+        const students = await USER.where({"type": "STUDENT"}).count();
+        const teachers = await USER.where({"type": "TEACHER"}).count();
+        const courses = await COURSE.count();
+
+        return {
+            "students": students,
+            "teachers": teachers,
+            "courses": courses,
+            "progress": progress,
+        };
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
 export async function CheckIfTokenIsValid(root) {
     const token = root.token;
